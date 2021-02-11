@@ -1,0 +1,79 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Register new parking lot</h4>
+                        <p class="card-category">Fill in required details</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="addParkingForm" autocomplete="off" novalidate (ngSubmit)="registerParking(addParkingForm.value)">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput
+                                               formControlName="name"
+                                               placeholder="Name" type="text">
+                                        <mat-hint align="end">Not more then 255 characters long.</mat-hint>
+                                        <mat-error *ngIf="hasError('address', 'required')">Name is required</mat-error>
+                                        <mat-error *ngIf="hasError('address', 'maxlength')">You have more than 255 characters</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput
+                                               formControlName="address"
+                                               placeholder="Address" type="text">
+                                        <mat-hint align="end">Not more then 255 characters long.</mat-hint>
+                                        <mat-error *ngIf="hasError('address', 'required')">Address is required</mat-error>
+                                        <mat-error *ngIf="hasError('address', 'maxlength')">You have more than 255 characters</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput
+                                               formControlName="capacity"
+                                               placeholder="Capacity" type="number">
+                                        <mat-error *ngIf="hasError('capacity', 'required')">Capacity is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Cost unit</mat-label>
+                                        <mat-select formControlName="costGranularity">
+                                            <mat-option *ngFor="let costGranularity of costGranularities"
+                                                        [value]="costGranularity.value">
+                                                {{costGranularity.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="hasError('costGranularity', 'required')">Capacity is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput
+                                               formControlName="cost"
+                                               placeholder="Cost per unit" type="number">
+                                        <mat-error *ngIf="hasError('cost', 'required')">Cost per unit is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-center"
+                                    type="submit" [disabled]="!addParkingForm.valid">Register parking</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

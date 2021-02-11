@@ -1,0 +1,157 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Register new parking lot</h4>
+                        <p class="card-category">Fill in required details</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="reportsForm" autocomplete="off" novalidate (ngSubmit)="getTransactions(reportsForm.value)">
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-12">-->
+<!--                                    <mat-form-field class="example-full-width">-->
+<!--                                        <input matInput-->
+<!--                                               formControlName="name"-->
+<!--                                               placeholder="Name" type="text">-->
+<!--                                        <mat-hint align="end">Not more then 255 characters long.</mat-hint>-->
+<!--                                        <mat-error *ngIf="hasError('address', 'required')">Name is required</mat-error>-->
+<!--                                        <mat-error *ngIf="hasError('address', 'maxlength')">You have more than 255 characters</mat-error>-->
+<!--                                    </mat-form-field>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-12">-->
+<!--                                    <mat-form-field class="example-full-width">-->
+<!--                                        <input matInput-->
+<!--                                               formControlName="address"-->
+<!--                                               placeholder="Address" type="text">-->
+<!--                                        <mat-hint align="end">Not more then 255 characters long.</mat-hint>-->
+<!--                                        <mat-error *ngIf="hasError('address', 'required')">Address is required</mat-error>-->
+<!--                                        <mat-error *ngIf="hasError('address', 'maxlength')">You have more than 255 characters</mat-error>-->
+<!--                                    </mat-form-field>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-12">-->
+<!--                                    <mat-form-field class="example-full-width">-->
+<!--                                        <input matInput-->
+<!--                                               formControlName="capacity"-->
+<!--                                               placeholder="Capacity" type="number">-->
+<!--                                        <mat-error *ngIf="hasError('capacity', 'required')">Capacity is required</mat-error>-->
+<!--                                    </mat-form-field>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Parking Name</mat-label>
+                                        <mat-select formControlName="parkingId">
+                                            <mat-option *ngFor="let parking of parkingSpaces"
+                                                        [value]="parking.id">
+                                                {{parking.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="hasError('parkingId', 'required')">Parking name is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <mat-label>Start date</mat-label>
+                                        <input matInput [matDatepicker]="myDatepickerStart" formControlName="startDate">
+                                        <mat-datepicker-toggle matSuffix [for]="myDatepickerStart"></mat-datepicker-toggle>
+                                        <mat-datepicker #myDatepickerStart></mat-datepicker>
+                                        <mat-error *ngIf="hasError('startDate', 'required')">Start date is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field>
+                                        <mat-label>End date</mat-label>
+                                        <input matInput [matDatepicker]="myDatepickerEnd" formControlName="endDate">
+                                        <mat-datepicker-toggle matSuffix [for]="myDatepickerEnd"></mat-datepicker-toggle>
+                                        <mat-datepicker #myDatepickerEnd></mat-datepicker>
+                                        <mat-error *ngIf="hasError('endDate', 'required')">Start date is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-center"
+                                    type="submit" [disabled]="!reportsForm.valid">Generate Raport</button>
+                            <div class="clearfix"></div>
+                        </form>
+
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
+                        <div>
+                            <mat-grid-list cols="2" rowHeight="18px">
+                                <mat-grid-tile>Total Revenue</mat-grid-tile>
+                                <mat-grid-tile>{{ revenue }}</mat-grid-tile>
+                                <mat-grid-tile>Total Registered Sessions</mat-grid-tile>
+                                <mat-grid-tile>{{ sessionsNumber }}</mat-grid-tile>
+                                <mat-grid-tile>Total Distinct Users</mat-grid-tile>
+                                <mat-grid-tile>{{ distinctUsers }}</mat-grid-tile>
+                            </mat-grid-list>
+                        </div>
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="col-md-12">
+                        <div class="mat-elevation-z8">
+                            <table mat-table [dataSource]="dataSource">
+
+                                <ng-container matColumnDef="parkingId">
+                                    <th mat-header-cell *matHeaderCellDef>Parking lot</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.parkingId}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="arrivalTime">
+                                    <th mat-header-cell *matHeaderCellDef>Arrival time</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.arrivalTime}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="departureTime">
+                                    <th mat-header-cell *matHeaderCellDef>Departure time</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.departureTime}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="duration">
+                                    <th mat-header-cell *matHeaderCellDef>Duration</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.duration}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="cost">
+                                    <th mat-header-cell *matHeaderCellDef>Cost</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.cost}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="userId">
+                                    <th mat-header-cell *matHeaderCellDef>User Id</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+
+                            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

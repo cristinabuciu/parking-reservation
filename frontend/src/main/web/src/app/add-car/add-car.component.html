@@ -1,0 +1,31 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Register new car plate</h4>
+                        <p class="card-category">Fill in required details</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="addCarForm" autocomplete="off" novalidate (ngSubmit)="registerCar(addCarForm.value)">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput
+                                               formControlName="carPlate"
+                                               placeholder="eg: CT01ABC" type="text">
+                                        <mat-error *ngIf="hasError('carPlate', 'required')">Car is not entered or incorrect</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-center"
+                                    type="submit" [disabled]="!addCarForm.valid">Register car</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

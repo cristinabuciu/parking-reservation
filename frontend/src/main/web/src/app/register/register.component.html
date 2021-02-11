@@ -1,0 +1,78 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Register new parking lot</h4>
+                        <p class="card-category">Fill in required details</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="registerUser(registerForm.value)">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput
+                                               formControlName="name"
+                                               placeholder="Name" type="text">
+                                        <mat-hint align="end">Not more then 255 characters long.</mat-hint>
+                                        <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput
+                                               formControlName="username"
+                                               placeholder="Username" type="text">
+                                        <mat-hint align="end">Not more then 255 characters long.</mat-hint>
+                                        <mat-error *ngIf="hasError('username', 'required')">Name is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput
+                                               formControlName="password"
+                                               placeholder="Password" type="password">
+                                        <mat-hint align="end">Not more then 255 characters long.</mat-hint>
+                                        <mat-error *ngIf="hasError('password', 'required')">Address is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput
+                                               formControlName="email"
+                                               placeholder="e-mail" type="email">
+                                        <mat-error *ngIf="hasError('email', 'required')">Capacity is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Cost unit</mat-label>
+                                        <mat-select formControlName="role">
+                                            <mat-option *ngFor="let role of roles"
+                                                        [value]="role.value">
+                                                {{role.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="hasError('role', 'required')">Capacity is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-center"
+                                    type="submit" [disabled]="!registerForm.valid">Register parking</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

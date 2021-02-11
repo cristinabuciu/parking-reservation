@@ -1,0 +1,32 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div *ngIf="requestedOpenSession && openSession == null">No open parking session for the current user</div>
+                <div *ngIf="openSession != null && parkingSpace != null" class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">{{parkingSpace.name}}</h4>
+                        <!--<p class="card-category">Subtitle</p>-->
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                <tr><td>Address:</td><td>{{parkingSpace.address}}</td></tr>
+                                <tr><td>Free parking spaces:</td><td>{{parkingSpace.freeParkingSpaces}}</td></tr>
+                                <tr><td>Total parking spaces:</td><td>{{parkingSpace.totalParkingSpaces}}</td></tr>
+                                <tr><td>Cost:</td><td>{{parkingSpace.cost}}</td></tr>
+                                <tr><td>Cost granularity:</td><td>{{parkingSpace.costGranularity}}</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button mat-raised-button class="btn btn-danger pull-center" type="button"
+                                (click)="closeOpenSession()">
+                            Leave parking
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
